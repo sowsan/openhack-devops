@@ -27,7 +27,7 @@ jobs:
       id: Test
       working-directory: apis/poi
       run: dotnet test --no-restore --verbosity normal      
-    - if: ${{ failure() }}
+    - if: ${{ failure() }}      
       name: Create Github Issue
       uses: bryannice/gitactions-git-issue-creation@master
       env:
@@ -35,6 +35,7 @@ jobs:
           GITHUB_COMMIT_SHA: ${{ github.sha }}
           GITHUB_OWNER: 'sowsan'
           GITHUB_REPO_NAME: 'openhack-devops'
+          GITHUB_REPO_OWNER: 'sowsan'
           GITHUB_ISSUE_TITLE: 'Demo''ing Git Issue Creation'
           GITHUB_ISSUE_BODY: 'Demo''ing Git Issue Creation'
       
