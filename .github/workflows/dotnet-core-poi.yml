@@ -29,6 +29,13 @@ jobs:
       run: dotnet test --no-restore --verbosity normal      
     - if: ${{ failure() }}
       name: Create Github Issue
-      run: 'echo Need a Github Issue'
+      uses: bryannice/gitactions-git-issue-creation@master
+      env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+          GITHUB_COMMIT_SHA: ${{ github.sha }}
+          GITHUB_REPO_OWNER: 'sowsan'
+          GITHUB_REPO_NAME: 'openhack-devops'
+          GITHUB_ISSUE_TITLE: 'Demo''ing Git Issue Creation'
+          GITHUB_ISSUE_BODY: 'Demo''ing Git Issue Creation'
       
       
