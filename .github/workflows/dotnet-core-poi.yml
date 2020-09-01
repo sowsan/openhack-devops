@@ -21,6 +21,8 @@ jobs:
       working-directory: apis/poi
       run: dotnet restore
     - name: Build
+      working-directory: apis/poi
       run: dotnet build --configuration Release --no-restore
     - name: Test
+      working-directory: apis/poi
       run: dotnet test --no-restore --verbosity normal
