@@ -1,6 +1,7 @@
 ---
-title: Someone just pushed
+name: Tracking issue
+about: Use this template for tracking new features.
+title: Build failed
+labels: tracking issue, needs triage
 assignees: sowsan
-labels: bug, enhancement
 ---
-Someone just pushed, oh no! Here's who did it: {{ payload.sender.login }}.
