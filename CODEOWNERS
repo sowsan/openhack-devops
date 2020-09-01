@@ -4,7 +4,7 @@
 # In this example, @doctocat owns any files in the build/logs
 # directory at the root of the repository and any of its
 # subdirectories.
-/api/poi/ @sowsan
-/api/trips/ @sowsan
-/api/user-java/ @sowsan
-/api/userprofile/ @sowsan
+/apis/poi/ @sowsan
+/apis/trips/ @sowsan
+/apis/user-java/ @sowsan
+/apis/userprofile/ @sowsan
