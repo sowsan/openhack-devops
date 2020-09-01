@@ -27,7 +27,7 @@ jobs:
       id: Test
       working-directory: apis/poi
       run: dotnet test --no-restore --verbosity normal      
-    - if: ${{steps.Test.outcome == 'failure' }}
+    - if: ${{ failure() }}
       name: Create Github Issue
       run: 'echo Need a Github Issue'
       
