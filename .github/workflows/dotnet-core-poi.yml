@@ -9,7 +9,6 @@ on:
 jobs:
   
   build:
-
     runs-on: ubuntu-latest
     continue-on-error: true
     steps:
@@ -27,8 +26,8 @@ jobs:
     - name: Test
       id: Test
       working-directory: apis/poi
-      run: dotnet test --no-restore --verbosity normal
-    - if: steps.Test.outcome == 'failure'
+      run: dotnet test --no-restore --verbosity normal      
+    - if: ${{steps.Test.outcome}} == 'failure'
       name: Create Github Issue
       run: 'echo Need a Github Issue'
       
