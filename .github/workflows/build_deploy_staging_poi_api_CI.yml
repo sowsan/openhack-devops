@@ -3,6 +3,7 @@ on:
   push:
     paths:
       - "apis/poi/**"
+      - ".github/workflows/**"
 jobs: 
   validate_stage:
     if: github.ref == 'refs/heads/master'
