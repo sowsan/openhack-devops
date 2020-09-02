@@ -25,5 +25,6 @@ jobs:
       - name: 'Deploy to Azure Web App for Container'
         uses: azure/webapps-deploy@v2
         with: 
-          app-name: openhackzjg27yi6poi/staging
+          app-name: openhackzjg27yi6poi
+          slot-name: 'staging'
           images:  ${{ secrets.registry }}/${{ secrets.repository }}/api-poi:${{ github.sha }}
