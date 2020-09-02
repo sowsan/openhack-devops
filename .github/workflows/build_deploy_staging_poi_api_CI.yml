@@ -5,6 +5,32 @@ on:
       - "apis/poi/**"
       - ".github/workflows/**"
 jobs: 
+  build_and_staging:
+    runs-on: ubuntu-latest
+    steps:
+      - name: ACR build
+        id: acr
+        uses: ams0/acr-task-github-action@v1
+        with:
+          service_principal: ${{ secrets.service_principal }}
+          service_principal_password: ${{ secrets.service_principal_password }}
+          tenant: ${{ secrets.tenant }}
+          registry: ${{ secrets.registry }}
+          repository: ${{ secrets.repository }}          
+          folder: apis/poi/web
+          image: api-poi
+          tag: ${{ github.run_number }}
+      - name: Login via Az module
+        uses: azure/login@v1.1
+        with:
+         creds: ${{secrets.AZURE_CREDENTIALS}}
+      - name: 'Deploy to Azure Web App for Container'
+        uses: azure/webapps-deploy@v2
+        with: 
+          app-name: openhackzjg27yi6poi
+          slot-name: 'staging'
+          images:  openhackzjg27yi6acr.azurecr.io/devopsoh/api-poi:${{ github.run_number }}
+          
   validate_stage:
     if: github.ref == 'refs/heads/master'
     runs-on: ubuntu-latest
@@ -16,16 +42,17 @@ jobs:
       with:
         url: https://openhackzjg27yi6poi-staging.azurewebsites.net/api/healthcheck/poi
         method: GET
-    - name: Check Output
+    - name: Check Output Swap Slots
       shell: pwsh
       run: |
           $output = '${{ steps.poi-health-check.outputs.output }}' | ConvertFrom-Json
           Write-Host " Status code is $($output.statusCode) "
           if($($output.statusCode) -eq 200) {          
             Write-host "Healthy"
-            Write-Error "API is not healthy"
+            az webapp deployment slot swap --name openhackzjg27yi6poi --resource-group openhackzjg27yi6rg --slot staging --target-slot production
             }
           else {
-            Write-Host "Not Healthy" }
+            Write-Error "POI API is not healthy"
+            }
          
   
