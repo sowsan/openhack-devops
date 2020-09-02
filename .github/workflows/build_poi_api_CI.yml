@@ -16,5 +16,5 @@ jobs:
           tenant: ${{ secrets.tenant }}
           registry: ${{ secrets.registry }}
           repository: ${{ secrets.repository }}
-          image: poi
+          image: changeme:${{github.run_number}}
           folder: apis/poi/web
