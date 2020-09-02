@@ -15,6 +15,5 @@ jobs:
           service_principal_password: ${{ secrets.service_principal_password }}
           tenant: ${{ secrets.tenant }}
           registry: ${{ secrets.registry }}
-          repository: ${{ secrets.repository }}
-          image: ${{github.run_number}}
+          repository: ${{ secrets.repository }}          
           folder: apis/poi/web
