@@ -23,6 +23,7 @@ jobs:
           Write-Host " Status code is $($output.statusCode) "
           if($($output.statusCode) -eq 200) {          
             Write-host "Healthy"
+            return 0
             }
           else {
             Write-Host "Not Healthy" }
