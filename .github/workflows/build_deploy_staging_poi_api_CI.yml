@@ -14,10 +14,10 @@ jobs:
       uses: satak/webrequest-action@master
       with:
         url: https://openhackzjg27yi6poi-staging.azurewebsites.net/api/healthcheck/poi
+        method: GET
     - name: Check Output
-      uses: azure/powershell@v1
-      with:
-        inlineScript: |
+      shell: pwsh
+      run: |
           $output = '${{ steps.webhook.outputs.output }}' | ConvertFrom-Json
           Write-Host "Health Status is $($output.data.message)"
   
