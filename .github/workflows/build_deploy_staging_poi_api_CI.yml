@@ -5,7 +5,7 @@ on:
       - "apis/poi/**"
       - ".github/workflows/**"
 jobs: 
-  build_and_staging:
+  build_and_deploy_to-staging:
     runs-on: ubuntu-latest
     steps:
       - name: ACR build
@@ -31,10 +31,10 @@ jobs:
           slot-name: 'staging'
           images:  openhackzjg27yi6acr.azurecr.io/devopsoh/api-poi:${{ github.run_number }}
           
-  validate_and_swap:
+  validate_staging_and_swap_production:
     if: github.ref == 'refs/heads/master'
     runs-on: ubuntu-latest
-    needs: build_and_staging
+    needs: build_and_deploy_to-staging
     steps:
     - name: curl
       id: poi-health-check
