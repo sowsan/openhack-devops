@@ -18,3 +18,8 @@ jobs:
           repository: ${{ secrets.repository }}          
           folder: apis/poi/web
           image: api-poi
+      - name: 'Deploy to Azure Web App for Container'
+        uses: azure/webapps-deploy@v2
+        with: 
+          app-name: openhackzjg27yi6poi/staging
+          images:  ${{ secrets.registry }}/${{ secrets.repository }}/api-poi:${{ github.sha }}
