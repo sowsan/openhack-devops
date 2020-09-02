@@ -15,7 +15,9 @@ jobs:
       with:
         url: https://openhackzjg27yi6poi-staging.azurewebsites.net/api/healthcheck/poi
     - name: Check Output
-      run: |
+      uses: azure/powershell@v1
+      with:
+        inlineScript: |
           $output = '${{ steps.webhook.outputs.output }}' | ConvertFrom-Json
           Write-Host "Health Status is $($output.data.message)"
   
