@@ -3,29 +3,14 @@ on:
   push:
     paths:
       - "apis/poi/**"
-jobs:
-  build:
+jobs: 
+  validate_stage:
+    if: github.ref == 'refs/heads/master'
     runs-on: ubuntu-latest
+    #needs: build_and_staging
     steps:
-      - name: ACR build
-        id: acr
-        uses: ams0/acr-task-github-action@v1
-        with:
-          service_principal: ${{ secrets.service_principal }}
-          service_principal_password: ${{ secrets.service_principal_password }}
-          tenant: ${{ secrets.tenant }}
-          registry: ${{ secrets.registry }}
-          repository: ${{ secrets.repository }}          
-          folder: apis/poi/web
-          image: api-poi
-          tag: ${{ github.run_number }}
-      - name: Login via Az module
-        uses: azure/login@v1.1
-        with:
-         creds: ${{secrets.AZURE_CREDENTIALS}}
-      - name: 'Deploy to Azure Web App for Container'
-        uses: azure/webapps-deploy@v2
-        with: 
-          app-name: openhackzjg27yi6poi
-          slot-name: 'staging'
-          images:  openhackzjg27yi6acr.azurecr.io/devopsoh/api-poi:${{ github.run_number }}
+    - name: curl
+      uses: wei/curl@master
+      with:
+        args: https://openhackzjg27yi6poi-staging.azurewebsites.net/api/healthcheck/poi
+  
