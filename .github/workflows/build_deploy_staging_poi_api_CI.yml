@@ -20,6 +20,6 @@ jobs:
       shell: pwsh
       run: |
           $output = '${{ steps.poi-health-check.outputs.output }}' | ConvertFrom-Json
-          $output.statusCode
+          Write-Host " Status code is $($output.statusCode) "
          
   
