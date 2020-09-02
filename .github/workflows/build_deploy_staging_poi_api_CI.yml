@@ -1,4 +1,4 @@
-name: build_poi_api_CI
+name: build_deploy_staging_poi_api_CI
 on:
   push:
     paths:
