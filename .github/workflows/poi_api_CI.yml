@@ -1,7 +1,8 @@
-name: .NET Core
+name: poi_api_CI
 
 on:
-  #push:
+  push:
+    paths: ".github/workflows/**"
   #  branches: [ master ]
   #  paths: apis/poi/**
   pull_request:
