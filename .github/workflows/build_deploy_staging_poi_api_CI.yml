@@ -3,7 +3,7 @@ on:
   push:
     paths:
       - "apis/poi/**"
-      - ".github/workflows/**"
+     # - ".github/workflows/**"
 jobs: 
   build_and_deploy_to-staging:
     runs-on: ubuntu-latest
