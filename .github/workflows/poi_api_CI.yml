@@ -21,22 +21,33 @@ jobs:
         dotnet-version: 2.1
     - name: Install dependencies
       working-directory: apis/poi
-      run: dotnet restore
+      run: dotnet restore      
     - name: Build
       working-directory: apis/poi
       run: dotnet build --configuration Release --no-restore
+    - name: Add Code Coverage Tools
+      working-directory: apis/poi/tests/UnitTests
+      run: dotnet add package coverlet.msbuild
+      
     - name: Test
       id: Test
       working-directory: apis/poi
-      run: dotnet test --no-restore --verbosity normal      
+      run: dotnet test --no-restore --verbosity normal apis/poi/tests/UnitTests  /p:CollectCoverage=true /p:CoverletOutput=lcov/ /p:CoverletOutputFormat=lcov  
+    
     - if: ${{ failure() }}      
       name: Create Github Issue
       uses: JasonEtco/create-an-issue@v2
       env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
-      id: create-issue
+      id: create-issue    
     - run: 'echo Created issue number ${{ steps.create-issue.outputs.number }}'
     - run: 'echo Created ${{ steps.create-issue.outputs.url }}'
         
-      
+    - name: Coveralls GitHub Action
+      uses: coverallsapp/github-action@v1.1.1
+      with:
+        github-token: ${{ secrets.GITHUB_TOKEN }}
+        path-to-lcov: apis/poi/tests/UnitTests/lcov/coverage.info
+
+ 
       
