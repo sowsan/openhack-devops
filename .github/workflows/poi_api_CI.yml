@@ -42,9 +42,4 @@ jobs:
       id: create-issue    
     - run: 'echo Created issue number ${{ steps.create-issue.outputs.number }}'
     - run: 'echo Created ${{ steps.create-issue.outputs.url }}'
-        
-    - name: Coveralls GitHub Action
-      uses: coverallsapp/github-action@v1.1.1
-      with:
-        github-token: ${{ secrets.GITHUB_TOKEN }}
-        path-to-lcov: apis/poi/tests/UnitTests/lcov/coverage.info          
+         
